@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<mbeans-descriptors>
+	<mbean code="org.bedework.synch.service.Synch" name="org.bedework:service=Synch">
+		<attribute name="Appname">Synch</attribute>
+
+		<!-- Dump/restore attributes -->
+
+		<!-- Create tables - false for safety - set true in console -->
+		<attribute name="Create">false</attribute>
+
+		<!-- Statement delimiter -->
+		<attribute name="Delimiter">;</attribute>
+
+		<!-- Drop tables - false for safety - set true in console -->
+		<attribute name="Drop">false</attribute>
+
+		<!-- Export to database? - false for safety - set true in console -->
+		<attribute name="Export">false</attribute>
+
+		<!-- Format the output? -->
+		<attribute name="Format">true</attribute>
+
+		<!-- Do we halt on error? -->
+		<attribute name="HaltOnError">true</attribute>
+
+		<!-- Schema Output file name - full path, folders must exist -->
+		<attribute name="SchemaOutFile">bedework/schema.txt</attribute>
+
+		<!-- SQL input file name - full path. Used instead of the configuration? -->
+		<!-- There appears to be a bug in the hibernate code. Everybody initialises 
+			this to /import.sql. Set to null causes an NPE Make sure it refers to a non-existant 
+			file -->
+		<attribute name="SqlIn">not-a-file.sql</attribute>
+
+		<!-- XML data output directory - full path. Used for data dump -->
+		<attribute name="DataOut">bedework/synch/dump.xml</attribute>
+
+		<!-- XML data output file prefix - for data dump -->
+		<attribute name="DataOutPrefix">synchdata</attribute>
+	</mbean>
+
+	<mbean code="org.bedework.synch.service.SynchConf" name="org.bedework:service=SynchConf">
+
+		<description>
+			This allows configuration of the synch engine
+		</description>
+		<class>org.bedework.synch.service.SynchConf</class>
+		<constructor>
+			<description>The default constructor</description>
+			<name>SynchConf</name>
+		</constructor>
+
+		<attribute access="read-write" getMethod="getSynchlingPoolSize"
+			setMethod="setSynchlingPoolSize">
+			<description>current size of synchling pool</description>
+			<name>SynchlingPoolSize</name>
+			<type>int</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getSynchlingPoolTimeout"
+			setMethod="setSynchlingPoolTimeout">
+			<description>timeout in millisecs</description>
+			<name>SynchlingPoolTimeout</name>
+			<type>long</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getMissingTargetRetries"
+			setMethod="setMissingTargetRetries">
+			<description>How often we retry when a target is missing
+			</description>
+			<name>MissingTargetRetries</name>
+			<type>int</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getCallbackURI"
+			setMethod="setCallbackURI">
+			<description>web service push callback uri - null for no service
+			</description>
+			<name>CallbackURI</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getTimezonesURI"
+			setMethod="setTimezonesURI">
+			<description>Timezone server location</description>
+			<name>TimezonesURI</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getKeystore"
+			setMethod="setKeystore">
+			<description>Path to keystore - null for use default</description>
+			<name>Keystore</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getPrivKeys"
+			setMethod="setPrivKeys">
+			<description>Path for privkeys</description>
+			<name>PrivKeys</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getPubKeys"
+			setMethod="setPubKeys">
+			<description>Path for pubkeys</description>
+			<name>PubKeys</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+	</mbean>
+
+	<mbean code="org.bedework.synch.service.SynchConnConf" name="org.bedework:service=SynchConnConf">
+		<description>
+			This allows configuration of connectors for the synch
+			engine
+		</description>
+		<class>org.bedework.synch.service.SynchConnConf</class>
+		<constructor>
+			<description>The default constructor</description>
+			<name>SynchConnConf</name>
+		</constructor>
+
+		<attribute access="read-only" getMethod="getStatus">
+			<description>Status of operations</description>
+			<name>Status</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute access="read-only" getMethod="getConnectorId">
+			<description>Name of connector</description>
+			<name>ConnectorId</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute access="read-only" getMethod="getConnectorNames">
+			<description>List of connector names</description>
+			<name>ConnectorNames</name>
+			<type>java.util.List</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getClassName"
+			setMethod="setClassName">
+			<description>Class name for connector</description>
+			<name>ClassName</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getReadOnly"
+			setMethod="setReadOnly">
+			<description>Is this a read-only connector?</description>
+			<name>ReadOnly</name>
+			<type>boolean</type>
+		</attribute>
+
+		<attribute access="read-write" getMethod="getTrustLastmod"
+			setMethod="setTrustLastmod">
+			<description>Can we trust the lastmod from this connector?
+			</description>
+			<name>TrustLastmod</name>
+			<type>boolean</type>
+		</attribute>
+
+		<attribute access="read-only" getMethod="getProperties">
+			<description>Set of properties</description>
+			<name>Properties</name>
+			<type>java.lang.String</type>
+		</attribute>
+
+		<!-- Operations -->
+
+		<operation>
+			<description>Get the named connector.</description>
+			<name>getConnector</name>
+			<parameter>
+				<description>Name of the connector</description>
+				<name>name</name>
+				<type>java.lang.String</type>
+			</parameter>
+		</operation>
+
+		<operation>
+			<description>Add a property - name need not be unique.</description>
+			<name>addProperty</name>
+			<parameter>
+				<description>Name of the property</description>
+				<name>name</name>
+				<type>java.lang.String</type>
+			</parameter>
+			<parameter>
+				<description>Value of the property</description>
+				<name>value</name>
+				<type>java.lang.String</type>
+			</parameter>
+		</operation>
+
+		<operation>
+			<description>Add the current connector.</description>
+			<name>add</name>
+		</operation>
+
+		<operation>
+			<description>Delete the named connector.</description>
+			<name>delete</name>
+			<parameter>
+				<description>Name of the connector</description>
+				<name>name</name>
+				<type>java.lang.String</type>
+			</parameter>
+		</operation>
+	</mbean>
+</mbeans-descriptors>

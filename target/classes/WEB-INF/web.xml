@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>Bedework synch callback server</display-name>
+    
+<!-- Something won't work because of this, because there was 10 *.war applications
+	with different names, and we have only one. Uncomment it and try resolve
+	problems if you have some.     
+	<context-param>
+        <param-name>bwappname</param-name>
+        <param-value>synchwcb</param-value>
+    </context-param> -->
+
+    <listener>
+        <listener-class>edu.rpi.sss.util.jsp.SessionListener</listener-class>
+    </listener>
+
+    <!-- Need this to flush a static table maintained by the servlet -->
+    <listener>
+        <listener-class>org.bedework.synch.web.SynchServlet</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>SynchServlet</servlet-name>
+        <servlet-class>org.bedework.synch.web.SynchServlet</servlet-class>
+        <init-param>
+            <param-name>application</param-name>
+            <param-value>servlet</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dumpContent</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SynchServlet</servlet-name>
+        <url-pattern>/synch/manager/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SynchServlet</servlet-name>
+        <url-pattern>/synch/*</url-pattern>
+    </servlet-mapping>
+</web-app>
