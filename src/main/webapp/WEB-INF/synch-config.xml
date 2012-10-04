@@ -34,7 +34,7 @@
 
     <!-- callback. Comment out for no service. MUST end in "/" -->
     <property name="callbackURI"
-              value="http://localhost:8080/synch/" />
+              value="http://127.0.0.1:8080/synch/" />
               
     <!-- Path to keystore - comment out to use default. Used for ssl etc.      
     <property name="keystore"
@@ -103,7 +103,7 @@
         <bean class="org.bedework.synch.db.SynchProperty">
           <property name="name" value="exchangeWSDLURI" />
           <property name="value" 
-                    value="http://localhost:8080/wsdls/exchange/Services.wsdl" />
+                    value="http://127.0.0.1:8080/wsdls/exchange/Services.wsdl" />
         </bean>
       </set>
     </property>
@@ -132,7 +132,7 @@
         <bean class="org.bedework.synch.db.SynchProperty">
           <property name="name" value="bwWSDLURI" />
           <property name="value" 
-                    value="http://localhost:8080/wsdls/synch/synchws.wsdl" />
+                    value="http://127.0.0.1:8080/wsdls/synch/synchws.wsdl" />
         </bean>
                   
         <!-- seconds before retry on failure  --> 

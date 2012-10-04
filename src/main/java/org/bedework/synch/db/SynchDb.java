@@ -27,7 +27,7 @@ import edu.rpi.cmt.db.hibernate.HibSessionImpl;
 
 import org.apache.log4j.Logger;
 
-import com.idega.hibernate.HibernateUtil;
+import com.idega.hibernate.SessionFactoryUtil;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -323,7 +323,7 @@ public class SynchDb implements Serializable {
       }
       sess = new HibSessionImpl();
       try {
-        sess.init(HibernateUtil.getSessionFactory(), getLogger());
+        sess.init(SessionFactoryUtil.getSessionFactory(), getLogger());
       } catch (HibException he) {
         throw new SynchException(he);
       }
